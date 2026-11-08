@@ -1,0 +1,20 @@
+# Build artifacts
+**/target/
+*.pdb
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+
+# Nested git metadata (keep local clone history; do not upload)
+horizon/.git/
+horizon/.git.keep/
+
+# Secrets
+.env
+.env.*
+*.pem
+*.key
+credentials.json
