@@ -1,11 +1,15 @@
 # Auto Fishing
 
-Press **F8** to enable or disable it. Cast the fishing rod normally. When the server reports a bite, the mod
-automatically reels in and recasts after a short delay.
+Press **F8** to enable or disable it, then cast a fishing rod normally. When the fishing bobber splash sound
+plays nearby, the mod automatically reels in and recasts after a short delay.
+
+This is a client-only mod; install it only on the client. It uses the vanilla splash sound instead of custom
+network payloads. Since Horizon's client API does not expose which bobber produced the sound, another
+player's bobber within 32 blocks can also trigger a reel while Auto Fishing is armed.
 
 ## Build
 
-The mod is built for Horizon 26.3 using the native mod API. Build and install it with the Horizon launcher:
+The mod is built for Horizon 26.3 using the native client mod API. Build and install it with the Horizon launcher:
 
 ```powershell
 horizon-launcher native-build . --instance <instance> --trust-native-code

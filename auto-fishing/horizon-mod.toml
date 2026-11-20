@@ -1,11 +1,11 @@
 id = "auto_fishing"
 name = "Auto Fishing"
-version = "0.1.0"
-description = "Automatically reels in when a fishing bobber bites, then casts again."
+version = "0.1.1"
+description = "Client-side auto fishing using the bobber splash sound."
 authors = ["Schonggg"]
 license = "MIT"
 api = "0.2"
-side = "both"
+side = "client"
 capabilities = ["registries"]
 
 [native]
