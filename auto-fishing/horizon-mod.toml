@@ -1,0 +1,13 @@
+id = "auto_fishing"
+name = "Auto Fishing"
+version = "0.1.0"
+description = "Automatically reels in when a fishing bobber bites, then casts again."
+authors = ["Schonggg"]
+license = "MIT"
+api = "0.2"
+side = "both"
+capabilities = ["registries"]
+
+[wasm]
+sha512 = "bb3c36d886dcc3df2cfcc439c745340ff6d8fe3461210901676027dd06dcf84ca187464bee660870e3f3468da54bc96a3a529e617f0bd98a28cc7723ffaa1751"
+toolchain = "1.99.1 58cf8f9c35b355199727627d07ae34a4e2846d67"
