@@ -7,6 +7,3 @@ publish = false
 
 [dependencies]
 horizon-mod-api = { path = ".horizon/sdk/api/crates/horizon-mod-api" }
-
-[package.metadata.horizon]
-sdk = "5ef7734fdd854add5efd6817178be3c988d8d050"

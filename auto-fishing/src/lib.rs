@@ -75,6 +75,9 @@ impl Hooks for AutoFishing {
             PayloadId("auto_fishing:action".into()),
             |value, _| {
                 let mut state = Self::state();
+                if !state.enabled {
+                    return Ok(());
+                }
                 match value.action.0 {
                     1 => state.pending = Pending::Reel,
                     2 => state.pending = Pending::Recast(2),
@@ -106,6 +109,9 @@ impl Hooks for AutoFishing {
             let mut state = Self::state();
             state.enabled = !state.enabled;
             let enabled = state.enabled;
+            if !enabled {
+                state.pending = Pending::None;
+            }
             drop(state);
 
             if let Some(toggle) = TOGGLE_TO_SERVER.get() {
