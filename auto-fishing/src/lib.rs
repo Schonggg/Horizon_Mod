@@ -11,6 +11,7 @@ const TOGGLE_KEY: &str = "toggle";
 const FISHING_ROD: &str = "minecraft:fishing_rod";
 const BITE_SOUND: &str = "minecraft:entity.fishing_bobber.splash";
 const MAX_BITE_SOUND_DISTANCE: f64 = 32.0;
+const RECAST_DELAY_TICKS: u8 = 5;
 
 #[derive(Default)]
 struct State {
@@ -135,7 +136,7 @@ impl Hooks for AutoFishing {
 
         match std::mem::take(&mut state.pending) {
             Pending::Reel => {
-                state.pending = Pending::Recast(2);
+                state.pending = Pending::Recast(RECAST_DELAY_TICKS);
                 drop(state);
                 let _ = host.click_mapping("key.use");
             }

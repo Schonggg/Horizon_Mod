@@ -1,6 +1,6 @@
 id = "auto_fishing"
 name = "Auto Fishing"
-version = "0.1.2"
+version = "0.1.3"
 description = "Client-side auto fishing using the bobber splash sound."
 authors = ["Schonggg"]
 license = "MIT"
