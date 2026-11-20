@@ -2,7 +2,7 @@
 use mod_api::{
     ClientHost, ClientTickPostEvent, Hand, Hooks, InteractionAttempt, InteractionKey,
     InteractionKeyMappingTriggeredEvent, KeyConflictContext, KeyRegistration, LoopContext,
-    PlaySoundEvent, Registrar, RegistrationContext,
+    PlaySoundEvent, Registrar, RegistrationContext, Text,
 };
 use std::sync::Mutex;
 
@@ -64,6 +64,18 @@ fn handle_bite_sound(state: &mut State, sound: &str, position: [f64; 3]) {
     }
 }
 
+fn toggle_status(state: &mut State) -> &'static str {
+    state.enabled = !state.enabled;
+    if !state.enabled {
+        state.armed = false;
+        state.player_position = None;
+        state.pending = Pending::None;
+        "Auto Fishing disabled"
+    } else {
+        "Auto Fishing enabled"
+    }
+}
+
 #[mod_api::horizon_mod]
 impl Hooks for AutoFishing {
     fn register(&self, r: &mut dyn Registrar, _: &RegistrationContext) {
@@ -76,12 +88,14 @@ impl Hooks for AutoFishing {
 
     fn client_tick_post(&self, host: &mut dyn ClientHost, _: &mut ClientTickPostEvent) {
         if host.consume_click(MOD_ID, TOGGLE_KEY) {
-            let mut state = Self::state();
-            state.enabled = !state.enabled;
-            if !state.enabled {
-                state.armed = false;
-                state.player_position = None;
-                state.pending = Pending::None;
+            let status = {
+                let mut state = Self::state();
+                toggle_status(&mut state)
+            };
+            if host.playing() {
+                if let Err(error) = host.chat_line(Text::literal(status)) {
+                    eprintln!("[auto_fishing] failed to show toggle status: {error:?}");
+                }
             }
         }
 
@@ -185,6 +199,16 @@ mod tests {
         let state = State::default();
         assert!(!state.enabled);
         assert!(matches!(state.pending, Pending::None));
+    }
+
+    #[test]
+    fn toggle_reports_each_enabled_state() {
+        let mut state = State::default();
+
+        assert_eq!(toggle_status(&mut state), "Auto Fishing enabled");
+        assert!(state.enabled);
+        assert_eq!(toggle_status(&mut state), "Auto Fishing disabled");
+        assert!(!state.enabled);
     }
 
     #[test]

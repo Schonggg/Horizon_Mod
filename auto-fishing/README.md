@@ -1,7 +1,7 @@
 # Auto Fishing
 
-Press **F8** to enable or disable it, then cast a fishing rod normally. When the fishing bobber splash sound
-plays nearby, the mod automatically reels in and recasts after a short delay.
+Press **F8** to enable or disable it; a status message appears in local chat. Then cast a fishing rod normally.
+When the fishing bobber splash sound plays nearby, the mod automatically reels in and recasts after a short delay.
 
 This is a client-only mod; install it only on the client. It uses the vanilla splash sound instead of custom
 network payloads. Since Horizon's client API does not expose which bobber produced the sound, another
